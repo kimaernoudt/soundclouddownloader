@@ -22,7 +22,9 @@ def findplaylist():
     print "PLAYLIST = ",playlistsearch.id, playlistsearch.title, playlistsearch.user
     print "TRACKLIST = "
     for track in playlistsearch.tracks: print track['title']
+
     question = raw_input("download all of these ? (y/n)")
+
     if question == "y":
         save_path = raw_input("directory to save in : ")
         print "dowloading"
@@ -33,6 +35,7 @@ def findplaylist():
             url = "http://api.soundcloud.com/tracks/" + track_id + "/download?client_id=" + client_id
             r = requests.get(url)
             completefilename = str(os.path.join(save_path, trackname + ".mp3"))
+
             if os.path.exists(completefilename) == True:
                 print "file already exists, skipping"
                 continue
