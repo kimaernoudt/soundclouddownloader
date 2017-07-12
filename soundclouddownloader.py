@@ -41,6 +41,5 @@ def findplaylist():
                 print "completed", track['title'], url
     else:
         raise SystemExit(0)
-    
-    
+
 findplaylist()
