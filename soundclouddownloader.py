@@ -17,17 +17,16 @@ def format_filename(s):
 def findplaylist():
     client_id="2t9loNQH90kzJcsFCODdigxfp325aq4z"
     client = soundcloud.Client(client_id=client_id)   
-    playlisttitle = raw_input("playlisttitle : ")
-    playlistget = client.get('/playlists', q=playlisttitle)
-    print "PLAYLIST = ",playlistget[0].id, playlistget[0].title
-    playlist = client.get('playlists/' + str(playlistget[0].id))
+    url = raw_input("url : ")
+    playlistsearch = client.get("http://api.soundcloud.com/resolve?url="+url+"&client_id="+client_id)
+    print "PLAYLIST = ",playlistsearch.id, playlistsearch.title, playlistsearch.user
     print "TRACKLIST = "
-    for track in playlist.tracks: print track['title']
+    for track in playlistsearch.tracks: print track['title']
     question = raw_input("download all of these ? (y/n)")
     if question == "y":
         save_path = raw_input("directory to save in : ")
         print "dowloading"
-        for track in playlist.tracks:
+        for track in playlistsearch.tracks:
             track_id = str(track['id'])
             trackname = track['title']
             trackname = format_filename(trackname)
